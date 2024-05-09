@@ -55,9 +55,9 @@ class Food:
         self.conn.disconnect
         return self.affected        
 
-    def delete(self, id):
+    def delete(self):
         self.conn = mydb()
-        sql="DELETE FROM warteg WHERE id='" + str(id) + "'"
+        sql="DELETE FROM warteg"
         self.affected = self.conn.delete(sql)
         self.conn.disconnect
         return self.affected

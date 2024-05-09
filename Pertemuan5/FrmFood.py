@@ -43,9 +43,9 @@ class FormMahasiswa:
         self.tree.heading('id', text='ID')
         self.tree.column('id', width="30")
         self.tree.heading('nama', text='Nama')
-        self.tree.column('nama', width="60")
+        self.tree.column('nama', width="200")
         self.tree.heading('lv_pedas', text='Level Pedas')
-        self.tree.column('lv_pedas', width="200")
+        self.tree.column('lv_pedas', width="75")
         # set tree position
         self.tree.place(x=0, y=200)
         self.onReload()
@@ -61,45 +61,16 @@ class FormMahasiswa:
         
     def onReload(self, event=None):
         # get data mahasiswa
-        mhs = Food()
-        result = mhs.getAllData()
+        food = Food()
+        result = food.getAllData()
         for item in self.tree.get_children():
             self.tree.delete(item)
-        students=[]
+        foods=[]
         for row_data in result:
-            students.append(row_data)
+            foods.append(row_data)
 
-        for student in students:
-            self.tree.insert('',END, values=student)
-    
-    def onCari(self, event=None):
-        nim = self.txtNIM.get()
-        mhs = Food()
-        res = mhs.getByNIM(nim)
-        rec = mhs.affected
-        if(rec>0):
-            messagebox.showinfo("showinfo", "Data Ditemukan")
-            self.TampilkanData()
-            self.ditemukan = True
-        else:
-            messagebox.showwarning("showwarning", "Data Tidak Ditemukan") 
-            self.ditemukan = False
-            self.txtNama.focus()
-        return res
-        
-    def TampilkanData(self, event=None):
-        nim = self.txtNIM.get()
-        mhs = Food()
-        res = mhs.getByNIM(nim)
-        self.txtNama.delete(0,END)
-        self.txtNama.insert(END,mhs.nama)
-        jk = mhs.jk
-        if(jk=="P"):
-            self.P.select()
-        else:
-            self.L.select()
-        self.txtKodeProdi.set(mhs.kode_prodi)   
-        self.btnSimpan.config(text="Update")
+        for item in foods:
+            self.tree.insert('',END, values=item)
                  
     def onSimpan(self, event=None):
         nama = self.txtNama.get()
@@ -124,19 +95,9 @@ class FormMahasiswa:
         return rec
 
     def onDelete(self, event=None):
-        nim = self.txtNIM.get()
-        mhs = Food()
-        mhs.nim = nim
-        if(self.ditemukan==True):
-            res = mhs.deleteByNIM(nim)
-            rec = mhs.affected
-        else:
-            messagebox.showinfo("showinfo", "Data harus ditemukan dulu sebelum dihapus")
-            rec = 0
-        
-        if(rec>0):
-            messagebox.showinfo("showinfo", "Data Berhasil dihapus")
-        
+        food = Food()
+        food.delete()
+        messagebox.showinfo("showinfo", "Data Berhasil dihapus")
         self.onClear()
     
     def onKeluar(self, event=None):
