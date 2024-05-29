@@ -3,11 +3,13 @@ import psycopg2
 class DBConnection:
 
     def __init__(self):
-        self.host = 'localhost'
-        self.port = 5432
-        self.name = 'dbfood'
-        self.user = 'friza'
-        self.password = '123'
+        self.host = 'pg-32ddcf44-databasefood.f.aivencloud.com'
+        self.port = 26867
+        self.name = 'defaultdb'
+        self.user = 'avnadmin'
+        self.password = 'AVNS__tYaifuhXvPrONoPhKO'
+        self.ca_file = 'ca.pem'
+        self.connection_timeout = 20
         self.conn = None
         self.cursor = None
         self.result = None
@@ -25,7 +27,10 @@ class DBConnection:
                                         port=self.port,
                                         database=self.name,
                                         user=self.user,
-                                        password=self.password)
+                                        password=self.password,
+                                        sslmode="require",
+                                        sslrootcert=self.ca_file,
+                                        connect_timeout= self.connection_timeout)
             self.cursor = self.conn.cursor()
             self.connected = True
         except psycopg2.Error as e:
