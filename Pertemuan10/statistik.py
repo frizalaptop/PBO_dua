@@ -4,25 +4,19 @@ from tabulate import tabulate
 
 buah = pd.read_excel('Pertemuan10/buah.xlsx', 'Sheet1')
 
+# Membuat tabel baru berisi total nilai kolom Stok dan Harga
+# Parameter pertama berupa list value kolom
+# Parameter columns berisi daftar nama kolom 
+jumlah = pd.DataFrame(
+    [['Jumlah',buah['Stok'].sum(), buah['Harga'].sum()]],
+    columns=['Nama','Stok', 'Harga']
+)
+print(buah)
+# Menggabungkan tabel buah dan jumlah pada file baru
+# Parameter pertama menerima list berisi member tabel
+new_table = pd.concat([buah,jumlah])
 
-stok = buah['Stok'].sum()
-harga = buah['Harga'].sum()
+# Membuat file baru bernama output.xlsx
+new_table.to_excel("Pertemuan10/output.xlsx", index=False) 
 
 
-mean = buah[['Stok', 'Harga']].mean() # rata-rata
-mode = buah[['Stok', 'Harga']].mode() # Modus / sering keluar
-range = buah[['Stok', 'Harga']].max() - buah[['Stok', 'Harga']].min() # nilai range
-
-minimum = buah[['Stok', 'Harga']].min() # nilai minimum
-quarile_25 = buah[['Stok', 'Harga']].quantile(0.25)
-median = buah[['Stok', 'Harga']].median() # nilai tengah
-quarile_75 = buah[['Stok', 'Harga']].quantile(0.75)
-maksimum = buah[['Stok', 'Harga']].max() # nilai maksimum
-
-agregasi = buah.agg({
-    "Stok": ['min', 'max'],
-    "Harga": ['min', 'max'],
-})
-
-# print(buah)
-# print(round(agregasi, 2))
