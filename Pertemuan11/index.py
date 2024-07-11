@@ -8,5 +8,5 @@ df = pd.read_excel('Pertemuan11/buah.xlsx','Sheet1')
 print(df.shape)
 print(df['Stok'].describe())
 
-df['Harga'].plot()
+df['Harga'].plot.box(showfliers=False, grid=True, figsize=(10,7))
 plt.show()
