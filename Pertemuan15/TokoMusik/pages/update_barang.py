@@ -1,5 +1,6 @@
 from tkinter import Frame, Label, Button, Entry, StringVar, messagebox, ttk
 from db.db_barang import Db_Barang
+from db.Barang import *
 from db.db_admin import Db_Admin
 
 class UpdateBarang(Frame):
@@ -11,7 +12,6 @@ class UpdateBarang(Frame):
         self.user = self.getOneUser(username)
         self.username = self.user[1]
         self.inLogin = self.user[3]
-        self
         self.render(self.parent)
         self.config(background='#FFFD8C')
 
@@ -20,9 +20,9 @@ class UpdateBarang(Frame):
         container.pack(pady=150)
 
         nama = StringVar()
-        nama.set(self.item[1])
+        nama.set(self.item['nama'])
         harga = StringVar()
-        harga.set(self.item[2])
+        harga.set(self.item['harga'])
 
         Label(container, text='Ubah Data Alat Musik', font=('Tahoma', 12, 'bold'), fg='white', anchor='e',background='#BB9AB1', padx=200, pady=10).grid(row=0, column=0, columnspan=2, pady=(0, 10))
 
@@ -34,7 +34,7 @@ class UpdateBarang(Frame):
     
         Label(container, text='Tersedia :', font=('Tahoma', 12, 'bold'), fg='#424769', width=15 , background='#EECEB9', anchor='e').grid(row=3, column=0, padx=25, pady=15)
         option_box = ttk.Combobox(container, values=['YES', 'NO'], state='readonly', width=25, font=('Tahoma', 12, 'bold'))
-        option_box.set(self.item[3])
+        option_box.set(self.item['available'])
         option_box.grid(row=3, column=1, padx=25, pady=15)
 
         Button(container, text='Perbarui', width=15, font=('Tahoma', 12, 'bold'), command=lambda: self.update((self.id,nama,harga,option_box, self.username,self.inLogin)), background='green', fg='white').grid(row=4, column=0, padx=25, pady=15, sticky='w')
@@ -49,9 +49,9 @@ class UpdateBarang(Frame):
         parent.page.pack(fill='both',expand=True)
 
     def getOne(self, id):
-        barang = Db_Barang()
-        barang.id = id
-        return barang.getOne()
+        barang = Barang()
+        [result] = barang.getById(id)
+        return result
     
     def getOneUser(self, username):
         barang = Db_Admin()
@@ -71,12 +71,11 @@ class UpdateBarang(Frame):
             messagebox.showerror('Error', 'Jumlah dan Harga harus di atas 0')
             return False
         
-        barang = Db_Barang()
-        barang.id = value[0]
+        barang = Barang()
         barang.nama = value[1].get()
         barang.harga = value[2].get()
         barang.available = value[3].get()
-        update = barang.update()
-
-        messagebox.showinfo('Success', 'Barang berhasil diperbarui')
+        update = barang.updateById(value[0])
+        res = json.loads(update)
+        messagebox.showinfo(res['status'], res['message'])
         self.clicked(self.parent, value[4], value[5])

@@ -1,6 +1,5 @@
 from tkinter import Frame, Label, Button, Entry, StringVar, messagebox, ttk
-from datetime import datetime
-from db.db_barang import Db_Barang
+from db.Barang import *
 
 class Form(Frame):
     def __init__(self,parent, username, state):
@@ -41,7 +40,7 @@ class Form(Frame):
         parent.page.pack(fill='both',expand=True)
 
     def create(self, value):
-        barang = Db_Barang()
+        barang = Barang()
         barang.nama = value[0].get()
         barang.harga = value[1].get()
         barang.available = value[2].get()
@@ -50,17 +49,21 @@ class Form(Frame):
             messagebox.showerror('Error','Semua field harus diisi!')
             return False
         
-        validatenama = barang.getOne()
+        validatenama = barang.getByNama(value[0].get())
         if (validatenama):
             messagebox.showerror("error", "Barang sudah ada")
             return False
         
-        barang.create()
-        messagebox.showinfo('Success', 'Barang berhasil ditambahkan')
+        if not value[1].get().isdigit():
+            messagebox.showerror('Error', 'Harga harus berupa angka!')
+            return False
+
+        if int(value[1].get()) < 1:
+            messagebox.showerror('Error', 'Jumlah dan Harga harus di atas 0')
+            return False
+        
+        res = barang.simpan()
+        res = json.loads(res)
+        messagebox.showinfo(res['status'],res['message'])
         self.clicked(self.parent, self.username, self.state)
     
-    
-    def setDate(self):
-        current_cal = datetime.now()
-        current = current_cal.strftime('%d-%B-%Y %H:%M')
-        return current
