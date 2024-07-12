@@ -34,7 +34,7 @@ class Login(Frame):
             Button(container, text='Submit', width=25, font=('Tahoma', 12, 'bold'), command=lambda: self.login(username.get(),password.get()), background='green', fg='white').grid(row=5, column=0, columnspan=2, padx=25, pady=15)
 
         else:   
-            Label(container, text='Selamat Datang Admin!', font=('Tahoma', 12, 'bold'), fg='#424769', width=100, anchor='center').grid(row=0, column=0, columnspan=2, padx=25, pady=15)
+            Label(container, text=f"Selamat Datang Admin {self.username}!", font=('Tahoma', 12, 'bold'), fg='#424769', width=100, anchor='center').grid(row=0, column=0, columnspan=2, padx=25, pady=15)
             Button(container, text='Ubah Profil', width=15, font=('Tahoma', 12, 'bold'), command=lambda: self.update(self.parent, UpdateUser, self.username), background='blue', fg='white').grid(row=1, column=0, padx=25, pady=15, sticky='e')
             Button(container, text='Hapus Akun', width=15, font=('Tahoma', 12, 'bold'), command=lambda: self.delete(self.parent,self.username), background='red', fg='white').grid(row=2, column=0, padx=25, pady=15, sticky='e')
             Button(container, text='Logout', width=15, font=('Tahoma', 12, 'bold'), command=self.logout, background='orange', fg='white').grid(row=3, column=0, padx=25, pady=15, sticky='e')
