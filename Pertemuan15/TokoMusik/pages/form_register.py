@@ -1,5 +1,6 @@
 from tkinter import Frame, Label, Button, Entry, StringVar, messagebox
-from db.db_admin import Db_Admin
+import json
+from db.Admin import Admin
 class Register(Frame):
     def __init__(self,parent):
         super().__init__()
@@ -25,12 +26,13 @@ class Register(Frame):
         Button(container, text='Submit', width=25, font=('Tahoma', 12, 'bold'), command=lambda: self.register(username.get(),password.get()), background='green', fg='white').grid(row=5, column=0, columnspan=2, padx=25, pady=15)
 
     def register(self, username, password):
-        _getUser = Db_Admin()
+        _getUser = Admin()
         _getUser.username = username
         _getUser.password = password
         _getUser.hasLogin = 0
-        result = _getUser.create()
-        messagebox.showinfo("success", "Akun berhasil dibuat")
+        result = _getUser.simpan()
+        result = json.loads(result)
+        messagebox.showinfo(result['status'], result['message'])
         self.clicked(self.parent)
 
 

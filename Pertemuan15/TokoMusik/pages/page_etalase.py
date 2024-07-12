@@ -3,7 +3,6 @@ import json
 from .form_barang import Form
 from .update_barang import UpdateBarang
 from db.Barang import *
-from db.db_barang import Db_Barang
 from db.db_admin import Db_Admin
 
 class Etalase(Frame):

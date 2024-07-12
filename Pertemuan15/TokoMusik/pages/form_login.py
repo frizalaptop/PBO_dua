@@ -1,11 +1,11 @@
 from tkinter import Frame, Label, Button, Entry, StringVar, messagebox
-from db.db_admin import Db_Admin
+from db.Admin import *
 from .update_user import UpdateUser
 class Login(Frame):
     def __init__(self,parent, username = '', state = 0):
         super().__init__()
         self.parent = parent
-        self.getUser = Db_Admin()
+        self.getUser = Admin()
         self.username = username
         self.inLogin = state
         self.render()
@@ -40,19 +40,23 @@ class Login(Frame):
             Button(container, text='Logout', width=15, font=('Tahoma', 12, 'bold'), command=self.logout, background='orange', fg='white').grid(row=3, column=0, padx=25, pady=15, sticky='e')
 
     def login(self, username, password):
+        if not username or not password:
+            messagebox.showerror('Error','Semua field harus diisi!')
+            return False
+        
         self.getUser.username = username
-        result = self.getUser.getOne()
-
-        if result == None:
+        result = self.getUser.getByUsername(username)
+        if result == []:
             messagebox.showerror("error", "username tidak ditemukan")
             return False
 
-        if result[2] != password:
+        if result[0]['password'] != password:
             messagebox.showerror("error", "Password tidak valid")
             return 
         
         self.username = username
         self.inLogin = 1
+        self.getUser.username = self.username
         self.getUser.hasLogin = self.inLogin
         self.getUser.updateHasLogin()
         self.clicked(self.parent, self.username, self.inLogin)
@@ -66,12 +70,12 @@ class Login(Frame):
     def delete(self, parent, username):
         if(messagebox.askyesno('Warning!','Apa anda yakin menghapus akun?')):
             self.getUser.username = username
-            self.getUser.delete()
+            self.getUser.deleteByUsername(username)
             self.clicked(parent, '', 0)
 
     def logout(self):
         self.getUser.username = self.username
-        self.getUser.getOne()
+        self.getUser.getByUsername(self.username)
 
         self.getUser.hasLogin = 0
         self.getUser.updateHasLogin()
