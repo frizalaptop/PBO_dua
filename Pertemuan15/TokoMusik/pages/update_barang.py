@@ -16,7 +16,7 @@ class UpdateBarang(Frame):
         self.config(background='#FFFD8C')
 
     def render(self, parent):
-        container = Frame(self, height=900)
+        container = Frame(self, height=900, background='#EECEB9')
         container.pack(pady=150)
 
         nama = StringVar()
@@ -24,15 +24,15 @@ class UpdateBarang(Frame):
         harga = StringVar()
         harga.set(self.item[2])
 
-        Label(container, text='Ubah Data Alat Musik', font=('Tahoma', 12, 'bold'), fg='#424769', anchor='e',background='#F3CCF3', padx=200, pady=10).grid(row=0, column=0, columnspan=2, pady=(0, 10))
+        Label(container, text='Ubah Data Alat Musik', font=('Tahoma', 12, 'bold'), fg='white', anchor='e',background='#BB9AB1', padx=200, pady=10).grid(row=0, column=0, columnspan=2, pady=(0, 10))
 
-        Label(container, text='Nama :', font=('Tahoma', 12, 'bold'), fg='#424769', width=15, anchor='e').grid(row=1, column=0, padx=25, pady=15)
-        Entry(container, textvariable=nama, width=25, font=('Tahoma', 12, 'bold'), background='#F3CCF3', fg='#424769').grid(row=1, column=1, padx=25, pady=15)
+        Label(container, text='Nama :', font=('Tahoma', 12, 'bold'), fg='#424769', width=15 , background='#EECEB9', anchor='e').grid(row=1, column=0, padx=25, pady=15)
+        Entry(container, textvariable=nama, width=25, font=('Tahoma', 12, 'bold'), background='white', fg='#424769').grid(row=1, column=1, padx=25, pady=15)
 
-        Label(container, text='Harga :', font=('Tahoma', 12, 'bold'), fg='#424769', width=15, anchor='e').grid(row=2, column=0, padx=25, pady=15)
-        Entry(container, textvariable=harga, width=25, font=('Tahoma', 12, 'bold'), background='#F3CCF3', fg='#424769').grid(row=2, column=1, padx=25, pady=15)
+        Label(container, text='Harga :', font=('Tahoma', 12, 'bold'), fg='#424769', width=15 , background='#EECEB9', anchor='e').grid(row=2, column=0, padx=25, pady=15)
+        Entry(container, textvariable=harga, width=25, font=('Tahoma', 12, 'bold'), background='white', fg='#424769').grid(row=2, column=1, padx=25, pady=15)
     
-        Label(container, text='Tersedia :', font=('Tahoma', 12, 'bold'), fg='#424769', width=15, anchor='e').grid(row=3, column=0, padx=25, pady=15)
+        Label(container, text='Tersedia :', font=('Tahoma', 12, 'bold'), fg='#424769', width=15 , background='#EECEB9', anchor='e').grid(row=3, column=0, padx=25, pady=15)
         option_box = ttk.Combobox(container, values=['YES', 'NO'], state='readonly', width=25, font=('Tahoma', 12, 'bold'))
         option_box.set(self.item[3])
         option_box.grid(row=3, column=1, padx=25, pady=15)

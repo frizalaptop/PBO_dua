@@ -19,7 +19,7 @@ class Etalase(Frame):
         items = sorted(self.getAll(), key=lambda item: item[1])
         Button(self, text='Tambah Barang', width=15, font=('Tahoma', 12, 'bold'), background='blue', fg='white', command=lambda: self.clicked(self.parent, Form, self.username, self.state)).pack(side='bottom', pady=10)
         
-        canvas = Canvas(self, bg='#9EB8D9')
+        canvas = Canvas(self, bg='#FEFBD8')
         canvas.pack(side='left', fill='both', expand=True)
 
         scrollbar = Scrollbar(self, orient='vertical', command=canvas.yview)
@@ -27,21 +27,21 @@ class Etalase(Frame):
 
         canvas.configure(yscrollcommand=scrollbar.set)
 
-        content_frame = Frame(canvas, bg='#9EB8D9')
+        content_frame = Frame(canvas, bg='#FEFBD8')
         canvas.create_window((50, 10), window=content_frame, anchor='nw')
 
-        container = Frame(content_frame, background='#EBD9B4')
+        container = Frame(content_frame, background='#EECEB9')
         container.pack(pady=5, fill='both', expand=True)
-        Label(container, bg='#EBD9B4', text="Nama Barang", width=40, font=('Tahoma', 10, 'bold'),anchor='w').grid(row=0, column=0)
-        Label(container,  bg='#EBD9B4', text="Harga", width=40, font=('Tahoma', 10, 'bold'), anchor='center', justify='center').grid(row=0, column=1)
-        Label(container, bg='#EBD9B4', text="Tersedia", width=20, font=('Tahoma', 10, 'bold'),anchor='w').grid(row=0, column=2)
+        Label(container, bg='#EECEB9', text="Nama Barang", width=50, font=('Tahoma', 10, 'bold'),anchor='w').grid(row=0, column=0)
+        Label(container,  bg='#EECEB9', text="Harga", width=50, font=('Tahoma', 10, 'bold'), anchor='center', justify='center').grid(row=0, column=1)
+        Label(container, bg='#EECEB9', text="Tersedia", width=20, font=('Tahoma', 10, 'bold'),anchor='center').grid(row=0, column=2)
 
         for item in items:
             container = Frame(content_frame)
             container.pack(pady=5, fill='both', expand=True)
-            Label(container, text=f"{item[1]}", width=40, font=('Tahoma', 10, 'bold'), fg='#424769',anchor='w').grid(row=0, column=0)
-            Label(container, text=f"{item[2]:,.0f}", width=40, font=('Tahoma', 10, 'bold'), fg='#424769', anchor='center', justify='center').grid(row=0, column=1)
-            Label(container, text=f"{item[3]}", width=20, font=('Tahoma', 10, 'bold'), fg='#424769',anchor='w').grid(row=0, column=2)
+            Label(container, text=f"{item[1]}", width=50, font=('Tahoma', 10, 'bold'), fg='#424769', background='#E7D4B5',anchor='w').grid(row=0, column=0)
+            Label(container, text=f"{item[2]:,.0f}", width=50, font=('Tahoma', 10, 'bold'), fg='#424769', background='#E7D4B5', anchor='center', justify='center').grid(row=0, column=1)
+            Label(container, text=f"{item[3]}", width=20, font=('Tahoma', 10, 'bold'), fg='#424769', background='#E7D4B5',anchor='center', justify='center').grid(row=0, column=2)
             
             Button(container, command=lambda id=item[0]: self.updatePage(self.parent, UpdateBarang, id, self.username), text='Ubah', width=15, font=('Tahoma', 8, 'bold'), background='orange', fg='white').grid(row=0, column=3)
             Button(container, command=lambda id=item[0]: self.delete(id), text='Hapus', width=15, font=('Tahoma', 8, 'bold'), background='red', fg='white').grid(row=0, column=4)
