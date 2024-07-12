@@ -3,13 +3,13 @@ import json
 from .form_barang import Form
 from .update_barang import UpdateBarang
 from db.Barang import *
-from db.db_admin import Db_Admin
+from db.Admin import *
 
 class Etalase(Frame):
     def __init__(self, parent, username, state):
         super().__init__()
         self.parent = parent
-        self.getUser = Db_Admin()
+        self.getUser = Admin()
         self.username = username
         self.state = state
         self.render()

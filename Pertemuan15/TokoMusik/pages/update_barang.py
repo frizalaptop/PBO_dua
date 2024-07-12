@@ -1,7 +1,6 @@
 from tkinter import Frame, Label, Button, Entry, StringVar, messagebox, ttk
-from db.db_barang import Db_Barang
 from db.Barang import *
-from db.db_admin import Db_Admin
+from db.Admin import *
 
 class UpdateBarang(Frame):
     def __init__(self, parent, id, username):
@@ -9,9 +8,9 @@ class UpdateBarang(Frame):
         self.id = id
         self.parent = parent
         self.item = self.getOne(self.id)
-        self.user = self.getOneUser(username)
-        self.username = self.user[1]
-        self.inLogin = self.user[3]
+        [self.user] = self.getOneUser(username)
+        self.username = self.user['username']
+        self.inLogin = self.user['hasLogin']
         self.render(self.parent)
         self.config(background='#FFFD8C')
 
@@ -54,9 +53,8 @@ class UpdateBarang(Frame):
         return result
     
     def getOneUser(self, username):
-        barang = Db_Admin()
-        barang.username = username
-        return barang.getOne()
+        barang = Admin()
+        return barang.getByUsername(username)
 
     def update(self, value):
         if(not value[1].get() or not value[2].get()):

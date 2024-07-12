@@ -1,6 +1,5 @@
 from tkinter import Frame, Label, Button, Entry, StringVar, messagebox
 from db.Admin import Admin
-import json
 
 class UpdateUser(Frame):
     def __init__(self, parent, username):
@@ -61,6 +60,5 @@ class UpdateUser(Frame):
         user.username = value[1].get()
         user.password = value[2].get()
         update = user.updateById(value[0])
-        res = json.loads(update)
-        messagebox.showinfo(res['status'], res['message'])
+        messagebox.showinfo(update['status'], update['message'])
         self.clicked(self.parent, user.username, user.hasLogin)
