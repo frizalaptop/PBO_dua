@@ -43,7 +43,7 @@ class Etalase(Frame):
             Label(container, text=f"{item[2]:,.0f}", width=40, font=('Tahoma', 10, 'bold'), fg='#424769', anchor='center', justify='center').grid(row=0, column=1)
             Label(container, text=f"{item[3]}", width=20, font=('Tahoma', 10, 'bold'), fg='#424769',anchor='w').grid(row=0, column=2)
             
-            Button(container, command=lambda id=item[0]: self.updatePage(self.parent, UpdateBarang, id), text='Ubah', width=15, font=('Tahoma', 8, 'bold'), background='orange', fg='white').grid(row=0, column=3)
+            Button(container, command=lambda id=item[0]: self.updatePage(self.parent, UpdateBarang, id, self.username), text='Ubah', width=15, font=('Tahoma', 8, 'bold'), background='orange', fg='white').grid(row=0, column=3)
             Button(container, command=lambda id=item[0]: self.delete(id), text='Hapus', width=15, font=('Tahoma', 8, 'bold'), background='red', fg='white').grid(row=0, column=4)
 
             content_frame.update_idletasks()
@@ -71,9 +71,9 @@ class Etalase(Frame):
             self.clicked(self.parent, Etalase, self.username, self.state)
         
     
-    def updatePage(self, parent, page, id):
+    def updatePage(self, parent, page, id, username):
         parent.page.destroy()
-        parent.page = page(parent, id)
+        parent.page = page(parent, id, username)
         parent.page.pack(fill='both',expand=True)
         
     def keluar(self, id_barang):

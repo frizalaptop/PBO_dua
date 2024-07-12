@@ -59,8 +59,8 @@ class Db_Barang():
     
     def update(self):
         src = Connection()
-        sql = "UPDATE t_barang SET nama=%s, harga=%s, available=%s, jumlah=%s, keluar=%s, wakel=%s, jumkel=%s WHERE id=%s"
-        val = (self._nama, self._harga, self._available, self._jumlah, self._keluar, self._wakel, self._jumkel, self._id,) 
+        sql = "UPDATE t_barang SET nama=%s, harga=%s, available=%s WHERE id=%s"
+        val = (self._nama, self._harga, self._available, self._id,) 
         src.update(sql, val)
         return self.getOne()
 

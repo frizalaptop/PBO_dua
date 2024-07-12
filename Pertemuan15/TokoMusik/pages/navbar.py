@@ -1,7 +1,6 @@
 from tkinter import Frame, Button, messagebox
 from .form_register import Register
 from .page_etalase import Etalase
-from .page_keluar import BarangKeluar
 from .form_login import Login
 from db.db_admin import Db_Admin
 
@@ -28,7 +27,6 @@ class Navbar(Frame):
 
         Button(container, text='Login' if self.inLogin == 0 else 'Dashboard', width=25, font=('Tahoma', 12, 'bold'), command=lambda: self.clicked(parent, Login, self.username, self.inLogin), background='#BB9AB1', fg='white').grid(row=1, column=1, padx=25)
         Button(container, text='Etalase', width=25, font=('Tahoma', 12, 'bold'), command=lambda: self.clicked(parent, Etalase, self.username, self.inLogin), background='#BB9AB1', fg='white').grid(row=1, column=2, padx=25)
-        Button(container, text='Barang keluar', width=25, font=('Tahoma', 12, 'bold'), command=lambda: self.clicked(parent, BarangKeluar), background='#BB9AB1', fg='white').grid(row=1, column=3, padx=25)
         Button(container, text='Registrasi', width=25, font=('Tahoma', 12, 'bold'), command=lambda: self.clicked(parent, Register), background='#BB9AB1', fg='white').grid(row=1, column=4, padx=25)
 
         container.pack()
