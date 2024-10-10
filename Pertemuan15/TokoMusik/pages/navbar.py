@@ -44,7 +44,6 @@ class Navbar(Frame):
                 messagebox.showwarning("warning", "Anda sudah Login")
                 return False
             else:
-                print('tidak ada')
                 pass
             
         parent.navbar.destroy()
